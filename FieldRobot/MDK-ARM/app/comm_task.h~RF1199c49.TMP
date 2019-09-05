@@ -1,0 +1,38 @@
+/** 
+  * @file comm_task.h
+  * @version 1.0
+  * @date Oct,19th 2018
+	*
+  * @brief  
+	*
+  *	@author lin kr
+  *
+  */
+#ifndef __COMM_TASK_H__
+#define __COMM_TASK_H__
+
+#include "stm32f4xx_hal.h"
+#define RISE_FINISH_SIGNAL     ( 1 << 4 )
+#define DETELE_RISE_TASK			 ( 1 << 5 )
+
+#define GIMBAL_MOTOR_MSG_SEND  ( 1 << 6 )
+#define CHASSIS_MOTOR_MSG_SEND ( 1 << 7 )
+
+#define SHOT_TASK_EXE_SIGNAL   ( 1 << 8 )
+#define INFO_GET_EXE_SIGNAL    ( 1 << 9 )
+
+/* motor current parameter structure */
+typedef struct
+{
+  /* 4 chassis motor current */
+  int16_t chassis_cur[4];
+  /* yaw/pitch/trigger motor current */
+  int16_t gimbal_cur[2];
+} motor_current_t;
+
+void can_msg_send_task(void const *argu);
+void send_chassis_motor_ctrl_message(void);
+
+extern motor_current_t motor_cur;
+
+#endif

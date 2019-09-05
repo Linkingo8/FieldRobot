@@ -1,0 +1,39 @@
+/**
+  * @file chassis_task.h
+  * @version 1.0
+  * @date Oct,19th 2018
+  *
+  * @brief  
+  *
+  *	@author lin kr
+  *
+  */
+#ifndef __CLASSIS_TASK_H__
+#define __CLASSIS_TASK_H__
+
+#include "stm32f4xx_hal.h"
+
+#define CHASSIS_PERIOD 30
+
+/* chassis parameter structure */
+
+typedef struct
+{
+  float           vx; // forward/back
+  float           vy; // left/right
+  float           vw; // rotate
+  
+//  chassis_mode_e  ctrl_mode;
+
+  int16_t         wheel_spd_fdb[4];
+  int16_t         wheel_spd_ref[4];
+  int16_t         current[4];
+  
+  int16_t         position_ref;
+} chassis_t;
+
+extern chassis_t chassis;
+
+void chassis_task(void const *argu);
+
+#endif
