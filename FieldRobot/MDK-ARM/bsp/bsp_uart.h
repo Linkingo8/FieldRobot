@@ -29,6 +29,10 @@ typedef struct tof_typedef1
 	uint16_t  back_val;
 	uint16_t  left_val;
 	uint16_t  right_val;
+  uint16_t  forward_cnt;
+	uint16_t  back_cnt;
+	uint16_t  left_cnt;
+	uint16_t  right_cnt;
 }tof_typedef;
 
 extern tof_typedef tof;

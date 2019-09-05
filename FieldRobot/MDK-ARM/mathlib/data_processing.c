@@ -15,8 +15,9 @@
 #include <math.h>
 //#include "cmsis_os.h"
 
-
-   
+ramp_function_source_t chassis_x_ramp;
+ramp_function_source_t chassis_y_ramp;
+ramp_function_source_t chassis_w_ramp;  
 
 
 /**
@@ -52,3 +53,33 @@ float circle_error(float *set ,float *get ,float circle_para)
 
 	return error;
 }
+
+/**
+  * @brief          斜波函数计算，根据输入的值进行叠加， 输入单位为 /s 即一秒后增加输入的值
+  * @author         RM
+  * @param[in]      斜波函数结构体
+  * @param[in]      输入值
+  * @param[in]      滤波参数
+  * @retval         返回空
+  */
+void ramp_calc(ramp_function_source_t *ramp_source_type, float frame_period, float input, float max, float min)
+{
+	ramp_source_type->max_value = max;
+	ramp_source_type->min_value = min;
+	  ramp_source_type->frame_period = frame_period;
+
+    ramp_source_type->input = input;
+
+    ramp_source_type->out += ramp_source_type->input * ramp_source_type->frame_period;
+
+    if (ramp_source_type->out > ramp_source_type->max_value)
+    {
+        ramp_source_type->out = ramp_source_type->max_value;
+    }
+    else if (ramp_source_type->out < ramp_source_type->min_value)
+    {
+        ramp_source_type->out = ramp_source_type->min_value;
+    }
+}
+	
+

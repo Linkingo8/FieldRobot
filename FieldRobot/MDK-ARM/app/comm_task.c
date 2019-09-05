@@ -50,7 +50,7 @@ void can_msg_send_task(void const *argu)
   */
 void send_chassis_motor_ctrl_message(int16_t chassis_cur[])
 {
-  send_chassis_cur(chassis_cur[0], chassis_cur[1], 
+   send_chassis_cur(chassis_cur[0], chassis_cur[1], 
                    chassis_cur[2], chassis_cur[3]);
 }
 
@@ -62,5 +62,5 @@ void send_chassis_motor_ctrl_message(int16_t chassis_cur[])
   */
 void send_manipulator_motor_ctrl_message(int16_t moto_6020_cur,int16_t moto_2006_cur)
 {
-  send_manipulator_cur(moto_6020_cur, moto_2006_cur, 0, 0);
+   send_manipulator_cur(moto_6020_cur, moto_2006_cur, 0, 0);
 }

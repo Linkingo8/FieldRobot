@@ -67,7 +67,7 @@ extern task_1_t task_1;
 void Task_No_1(void const *argu);
 void Task_1_param_init(void);
 void Foward_go(int16_t speed);
-void Along_the_left_side(int16_t left_limit);
+void Along_the_left_side(int16_t speed,int16_t left_limit);
 
 
 #endif

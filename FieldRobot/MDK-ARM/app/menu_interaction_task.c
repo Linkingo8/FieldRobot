@@ -15,6 +15,7 @@
 #include "gui.h"
 #include "adc.h"
 #include "oled.h"
+#include "Task_1.h"
 
 uint16_t button_adc_value;
 Mark Mark_Sign;
@@ -166,7 +167,12 @@ void menu_switch_task(void const *argu)
 							 break;
                case Task_1_Running:	
                {
-								 GUI_ShowString(12,20,(unsigned char*)"Task_1 Running",16,1);
+								 	if(Mark_Sign.last_Interface_Mark!=Task_Interface||Mark_Sign.last_Task_Mark!=Task_1_Running)
+									{
+								      GUI_ShowString(12,20,(unsigned char*)"Task_1 Running",16,1);    									
+								      Mark_Sign.last_Task_Mark=Task_1_Running;
+									}
+
                }	
                break;							 
                default:
@@ -258,11 +264,13 @@ void Interface_switch(void)
 				OLED_Clear(0);
 				Mark_Sign.Interface_Mark=Task_Interface;
 				Mark_Sign.Task_Mark=Task_1;
+				Mark_Sign.mid_cnt=40;
 			}
 			if(Mark_Sign.Menu_Mark==Menu_Data)
 			{
 				OLED_Clear(0);
 				Mark_Sign.Interface_Mark=Data_Interface;
+				Mark_Sign.mid_cnt=40;
 			}
 //			if(Mark_Sign.Menu_Mark==Menu_System)Mark_Sign.Interface_Mark=Task_Interface;
 		}
@@ -272,13 +280,12 @@ void Interface_switch(void)
 			Mark_Sign.Interface_Mark=Menu_Interface; //³¤°´²Ëµ¥¼ü
 			Mark_Sign.Menu_Mark=Menu_Function;
 		}
-		if(Mark_Sign.mid_cnt>4&&Mark_Sign.Interface_Mark==Task_Interface&&Mark_Sign.mid_cnt<80)
+		if(Mark_Sign.mid_cnt>4&& Mark_Sign.Task_Mark==Task_1&&Mark_Sign.mid_cnt<40)
 		{
-      if(Mark_Sign.Task_Mark==Task_1)
-			{
 				OLED_Clear(0);
         Mark_Sign.Task_Mark=Task_1_Running;
-			}
+			  task_1.task_process=TASK_RUNNING_1;
+			  Mark_Sign.mid_cnt=40;
 	  }
 	}
 	else

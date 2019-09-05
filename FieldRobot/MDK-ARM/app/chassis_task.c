@@ -72,7 +72,7 @@ void chassis_task(void const *argu)
 			chassis.position_ref = (float)task_1.position_ref;
 			chassis.position_fdb = (float)imu.yaw;
 			chassis.position_error = circle_error(&chassis.position_ref,&chassis.position_fdb,360);
-			chassis.vw = -1.0f*pid_calc(&pid_chassis_angle,chassis.position_fdb+chassis.position_error,chassis.position_ref); 
+			chassis.vw = pid_calc(&pid_chassis_angle,chassis.position_fdb,chassis.position_fdb+chassis.position_error); 
 			taskEXIT_CRITICAL();
 			break;
 		}
@@ -146,10 +146,10 @@ void chassis_init(void)
 	for(int i=0; i<4; i++)
 	{
 		PID_struct_init(&pid_spd[i], POSITION_PID, 15000, 15000,
-									3.0f,	0.005f,	0.0f	);  
+									3.5f,	0.008f,	0.0f	);  
 	}
-	PID_struct_init(&pid_chassis_angle, POSITION_PID, 6000, 300,
-									4.0f,	0.005f,0.0f	); 
+	PID_struct_init(&pid_chassis_angle, POSITION_PID, 1000, 300,
+									100.0f,	0.12f,0.0f	); 
 }
 
 
